@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV@Deakin - Subscribe</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</body>
+<div class="container">
+    <h1>Sign Up to DEV@Deakin</h1>
+    <form id="subscribe-form">
+        <label for="email"></label>
+        <input type="email" id="email" name="email"  placeholder="EMAIL" required>
+        <button type="submit">Subscribe</button>
+    </form>
+    <p id="response"></p>
+</div>
+<script>
+    document.getElementById('subscribe-form').addEventListener('submit', function (event) {
+        event.preventDefault(); 
+        const email = document.getElementById('email').value;
+        fetch('/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'},
+            body: JSON.stringify({ email: email })
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('response').textContent = data;
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = 'Error: ' + error;
+            });
+    });
+</script>
+</body>
+</html>
